@@ -1,6 +1,7 @@
-FROM australia.gcr.io/deeplearning-platform-release/tensorflow-serving
+FROM gcr.io/deeplearning-platform-release/base-cu110.py37
 
 RUN pip install --upgrade pip
+RUN pip install scikit-learn
 RUN pip install cloudml-hypertune
 
 # Copy the training code to the docker image.
