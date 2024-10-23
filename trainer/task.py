@@ -1,6 +1,8 @@
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble        import RandomForestRegressor
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics         import mean_squared_error
+from sklearn.preprocessing   import MinMaxScaler
+
 
 import pandas as pd
 import argparse
@@ -13,24 +15,24 @@ def get_args():
     
     parser.add_argument(
         '--n_estimators',
-        required=True,
-        type=int,
-        help='The number of trees in the forest')
+        required = True,
+        type     = int,
+        help     = 'The number of trees in the forest')
     parser.add_argument(
         '--max_depth',
-        required=True,
-        type=int,
-        help='The maximum depth of the tree.')
+        required = True,
+        type     = int,
+        help     = 'The maximum depth of the tree.')
     parser.add_argument(
         '--min_samples_split',
-        required=True,
-        type=int,
-        help='The minimum number of samples required to split an internal node')
+        required = True,
+        type     = int,
+        help     = 'The minimum number of samples required to split an internal node')
     parser.add_argument(
         '--min_samples_leaf',
-        required=True,
-        type=int,
-        help='The minimum number of samples required to be at a leaf node')
+        required = True,
+        type     = int,
+        help     = 'The minimum number of samples required to be at a leaf node')
 
     args = parser.parse_args()
     return args
@@ -51,10 +53,10 @@ def create_model(n_estimators, max_depth, min_samples_split, min_samples_leaf):
     '''Defines and compiles model.'''
 
     model = RandomForestRegressor(
-        n_estimators=n_estimators,
-        max_depth=max_depth,
-        min_samples_split=min_samples_split,
-        min_samples_leaf=min_samples_leaf,
+        n_estimators      = n_estimators,
+        max_depth         = max_depth,
+        min_samples_split = min_samples_split,
+        min_samples_leaf  = min_samples_leaf,
     )
 
     return model
@@ -73,8 +75,8 @@ def main():
 
     hpt = hypertune.HyperTune()
     hpt.report_hyperparameter_tuning_metric(
-        hyperparameter_metric_tag='mean_squared_error',
-        metric_value=hp_metric)
+        hyperparameter_metric_tag = 'mean_squared_error',
+        metric_value              = hp_metric)
 
 if __name__ == "__main__":
     main()
