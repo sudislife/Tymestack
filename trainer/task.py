@@ -4,7 +4,7 @@ from sklearn.metrics         import mean_squared_error
 from sklearn.preprocessing   import MinMaxScaler
 
 
-import pandas as pd
+import pandas    as pd
 import argparse
 import hypertune
 
@@ -41,10 +41,8 @@ def get_args():
 def create_dataset():
     '''Loads Boston Housing Data.'''
 
-    df = pd.read_csv('boston.csv')
-
-    train_data, test_data = train_test_split(df, test_size=0.2, random_state=7)
-    train_data, validation_data = train_test_split(train_data, test_size=0.1)
+    train_data = pd.read_csv('boston_train.csv')
+    train_data, validation_data = train_test_split(train_data, test_size=0.1, random_state=7)
 
     return train_data, validation_data
 
