@@ -3,10 +3,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics         import mean_squared_error
 from sklearn.preprocessing   import MinMaxScaler
 
-
+import hypertune
 import pandas    as pd
 import argparse
-import hypertune
+
 
 def get_args():
     '''Parses args. Must include all hyperparameters you want to tune.'''
@@ -40,7 +40,6 @@ def get_args():
 
 def create_dataset():
     '''Loads Boston Housing Data.'''
-
     train_data = pd.read_csv('boston_train.csv')
     train_data, validation_data = train_test_split(train_data, test_size=0.1, random_state=7)
 
@@ -49,7 +48,6 @@ def create_dataset():
 
 def create_model(n_estimators, max_depth, min_samples_split, min_samples_leaf):
     '''Defines and compiles model.'''
-
     model = RandomForestRegressor(
         n_estimators      = n_estimators,
         max_depth         = max_depth,
@@ -67,14 +65,14 @@ def main():
     model.fit(train_data.drop('Target', axis=1), train_data['Target'])
     predictions = model.predict(validation_data.drop('Target', axis=1))
 
-    # DEFINE METRIC
-    # As we want to minimize the mean squared error, we will negate it.
+    # Return the mean squared error
     hp_metric = mean_squared_error(predictions, validation_data['Target'])
 
     hpt = hypertune.HyperTune()
     hpt.report_hyperparameter_tuning_metric(
         hyperparameter_metric_tag = 'mean_squared_error',
         metric_value              = hp_metric)
+
 
 if __name__ == "__main__":
     main()
