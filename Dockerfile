@@ -1,6 +1,8 @@
 FROM gcr.io/deeplearning-platform-release/base-cu110.py37
 
-RUN pip install --upgrade pip
+WORKDIR /
+
+RUN pip install pandas
 RUN pip install scikit-learn
 RUN pip install cloudml-hypertune
 
